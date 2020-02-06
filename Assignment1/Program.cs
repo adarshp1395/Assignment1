@@ -88,7 +88,44 @@ namespace Assignment1
         {
             try
             {
-                //Write your code here .!!
+                int hour, min, sec, total;
+                int Uhour, Smin, Fsec;
+                string meridian, final;
+
+                string temp = s.Substring(0, 2);
+                hour = Int32.Parse(temp);
+              
+                string temp1 = s.Substring(3, 2);
+                min = Int32.Parse(temp1);
+                
+                string temp2 = s.Substring(6, 2);
+                sec = Int32.Parse(temp2);
+                
+                meridian = s.Substring(8, 2);
+                
+                if(meridian == "AM")
+                {
+                    total = ((hour * 3600) + (min * 60) + (sec));
+                }
+                else
+                {
+                   
+                    total = ((hour * 3600) + (min * 60) + (sec) + (12 * 3600));
+                    
+                }
+
+                Uhour = total / 2700;
+                Smin = (total % 2700)/45;
+                Fsec = (total % 2700) % 45;
+
+                final = "";
+
+                final = (Uhour < 10) ? (final+ "0"+ Uhour + ":") : (final + Uhour + ":");
+                final = (Smin < 10) ? (final + "0" + Smin + ":") : (final + Smin + ":");
+                final = (Fsec < 10) ? (final + "0" + Fsec) : (final + Fsec);
+
+
+                return final;
             }
             catch
             {
