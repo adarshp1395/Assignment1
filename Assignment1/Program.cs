@@ -102,7 +102,51 @@ namespace Assignment1
         {
             try
             {
-                // Write your code here
+                int count = 1;
+                int i;
+
+                for (i = 1; i <= n3; i++)
+                {
+                    //count = count + 1;
+                    if(count > k)
+                    {
+                        Console.WriteLine();
+                        count = 1;
+                    }
+                    count = count + 1;
+                    if (i % 3 == 0 && i % 5 == 0 && i % 7 == 0)
+                    {
+                        Console.Write(" USF");
+                    }
+                    else if(i % 5 == 0 && i % 7 == 0)
+                    {
+                        Console.Write(" SF");
+                    }
+                    else if (i % 3 == 0 && i % 5 == 0)
+                    {
+                        Console.Write(" US");
+                    }
+                    else if (i % 3 == 0 && i % 7 == 0)
+                    {
+                        Console.Write(" UF");
+                    }
+                    else if (i % 7 == 0)
+                    {
+                        Console.Write(" F");
+                    }
+                    else if (i % 5 == 0)
+                    {
+                        Console.Write(" S");
+                    }
+                    else if (i % 3 == 0)
+                    {
+                        Console.Write(" U");
+                    }
+                    else
+                    {
+                        Console.Write(" "+i);
+                    }
+                }
             }
             catch
             {
