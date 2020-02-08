@@ -21,7 +21,7 @@ namespace Assignment1
             int k = 11;
             UsfNumbers(n3, k);
 
-            string[] words = new string[] { "abcd", "dcba", "lls", "s", "sssll" };
+            string[] words = new string[] { "bat", "tab", "cat" };
             PalindromePairs(words);
 
 
@@ -198,12 +198,43 @@ namespace Assignment1
             try
             {
                 // Write your code here
+                Console.WriteLine();
+                string first, second;
+                int i, j;
+                List<string> pairsList = new List<string>();
+
+                for (i = 0; i < words.Length; i++)
+                {
+                    first = words[i];
+                    for (j = 0; j <words.Length; j++)
+                    {
+                        second = words[j];
+                        if (i != j && Program.isPalindrome(first, second))
+                        {
+                            pairsList.Add('[' + i.ToString() + ',' + j.ToString() + ']');
+                        }
+                    }
+                }
+                string resultfinal = '[' + string.Join(",", pairsList.ToArray()) + ']'; 
+                Console.WriteLine(resultfinal);
             }
             catch
             {
 
                 Console.WriteLine("Exception occured while computing     PalindromePairs()");
             }
+        }
+
+        public static bool isPalindrome(string s1, string s2)
+        {
+            string combinedString = s1 + s2;
+
+            char[] ch = combinedString.ToCharArray();
+            Array.Reverse(ch);
+            string reverse = new String(ch);
+
+            bool result = combinedString.Equals(reverse);
+            return result;
         }
 
         public static void Stones(int n4)
