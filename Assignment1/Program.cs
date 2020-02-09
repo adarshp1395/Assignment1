@@ -21,8 +21,11 @@ namespace Assignment1
             int k = 11;
             UsfNumbers(n3, k);
 
-            string[] words = new string[] { "bat", "tab", "cat" };
+            string[] words = new string[] { "abcd", "dcba", "lls", "s", "sssll" };
             PalindromePairs(words);
+
+            int n4 = 5;
+            Stones(n4);
 
 
         }
@@ -32,6 +35,7 @@ namespace Assignment1
         {
             try
             {
+                Console.WriteLine("------- Question 1 -------");
                 int i, j;
                 //Outer loop for number of lines in the pattern.
                 for (i = n; i >= 1; i--)
@@ -55,15 +59,8 @@ namespace Assignment1
         {
             try
             {
-                //Write your code here .!!
-                /*
-                 * This method prints the following series till n terms: 1, 3, 6, 10, 15, 21……
-                     * For example, if n2 = 6, output will be
-                     * 1,3,6,10,15,21
-                     * Returns : N/A
-                     * Return type: void
-                     * Hint: Series is 1,1+2=3,1+2+3=6,1+2+3+4=10,1+2+3+4+5=15, 1+2+3+4+5+6=21……
-                 */
+                Console.WriteLine();
+                Console.WriteLine("------- Question 2 -------");
                 int i, num = 0;
                 List<int> result = new List<int>();
 
@@ -88,6 +85,9 @@ namespace Assignment1
         {
             try
             {
+                Console.WriteLine();
+                Console.WriteLine("------- Question 3 -------");
+
                 int hour, min, sec, total;
                 int Uhour, Smin, Fsec;
                 string meridian, final;
@@ -139,6 +139,8 @@ namespace Assignment1
         {
             try
             {
+                Console.WriteLine();
+                Console.WriteLine("------- Question 4 -------");
                 int count = 1;
                 int i;
 
@@ -183,7 +185,9 @@ namespace Assignment1
                     {
                         Console.Write(" "+i);
                     }
+                
                 }
+                Console.WriteLine();
             }
             catch
             {
@@ -197,8 +201,8 @@ namespace Assignment1
         {
             try
             {
-                // Write your code here
                 Console.WriteLine();
+                Console.WriteLine("------- Question 5 -------");
                 string first, second;
                 int i, j;
                 List<string> pairsList = new List<string>();
@@ -237,11 +241,91 @@ namespace Assignment1
             return result;
         }
 
+
+        /*
+             * In order to win the game:
+             * - Player 1 should begin
+             * - It should be player 2's chance when the last 4 stones remain in the bag
+             * - If we set aside the 4 stones from the beginning with fixed player assignment (2,1,1,1)
+             * - We are left with (n-4) stones to distribute amongst the two players such that
+             *          player 1 is the first and last one to pick the stone.
+             *    
+             * For example if we have player 1 and 2 and :
+             * 1) if no of stones = 10, we will assign the stones in the following manner: [1,2,1,1,2,1 || 2,1,1,1]
+             * Output : [1,1,2,1,1,1,3]
+             *
+             * 2) if no of stones = 5, we will assign the stones in the following manner: [1 || 2,1,1,1]
+             * Output: [1,1,3]
+        */
         public static void Stones(int n4)
         {
             try
             {
-                // Write your code here
+                Console.WriteLine();
+                Console.WriteLine("------- Question 6 -------");
+                int temp, i;
+
+                if (n4 == 4)
+                {
+                    // As there are 4 stones in the bag, game can never be won
+                    Console.WriteLine("False");
+                }
+                else
+                { 
+                    // No of stones left after removing 4 stones
+                    temp = n4 - 4;
+
+                    // Player 1 will start the game
+                    Boolean isPlayer1 = true;
+
+                    // Assigning player to each stone in the bag
+                    int[] stones = new int[temp];
+                    int[] last4stones = new int[4] { 2, 1, 1, 1 };
+
+                    int count = 0;
+                    for (i = 0; i < temp; i++)
+                    {
+                        if (count == temp)
+                        {
+                            // all stones have been assigned a player
+                            break;
+                        }
+                        // assigning stone from the start of array
+                        stones[i] = isPlayer1 == true ? 1 : 2;
+                        count++;
+                        if (count != temp - 1)
+                        {
+                            // assigning stone from the end of array
+                            stones[temp - i - 1] = isPlayer1 == true ? 1 : 2;
+                            count++;
+                        }
+                        // changing player
+                        isPlayer1 = !isPlayer1;
+                    }
+
+                    // Merging two arrays 
+                    List<int> coinList = new List<int>();
+                    coinList.AddRange(stones);
+                    coinList.AddRange(last4stones);
+                    int[] arr3 = coinList.ToArray();
+
+                    // Final result list for the moves by each player
+                    List<int> playerMoves = new List<int>();
+                    count = 0;
+                    for (i = 0; i < arr3.Length; i++)
+                    {
+                        count++;
+                        if(i == arr3.Length - 1 || arr3[i] != arr3[i+1])
+                        {
+                            playerMoves.Add(count);
+                            count = 0;
+                        }
+                    }
+
+                    // Displaying final player moves. Player 1 starts.
+                    Console.WriteLine("[" + string.Join(",", playerMoves.ToArray()) + "]");
+
+                }
             }
             catch
             {
