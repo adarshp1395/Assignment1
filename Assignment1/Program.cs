@@ -37,7 +37,7 @@ namespace Assignment1
             {
                 Console.WriteLine("------- Question 1 -------");
                 int i, j;
-                //Outer loop for number of lines in the pattern.
+                //Outer loop for number of lines in the pattern. 
                 for (i = n; i >= 1; i--)
                 {
                     // Inner loop for printing series 54321..
@@ -55,6 +55,7 @@ namespace Assignment1
         }
 
 
+        /*  This method prints the following series till n terms: 1, 3, 6, 10, 15, 21…. */
         private static void PrintSeries(int n2)
         {
             try
@@ -64,12 +65,13 @@ namespace Assignment1
                 int i, num = 0;
                 List<int> result = new List<int>();
 
-
+                //Loop for reading series up to n2 = 6 and result keeps on adding to num = 0;
                 for (i = 1; i <= n2; i++)
                 {
                     num = i + num;
                     result.Add(num);
                 }
+                // Converting list to array and joining each element in the array with ',' for display
                 string resultfinal = string.Join(",", result.ToArray());
                 Console.WriteLine(resultfinal);
 
@@ -92,6 +94,8 @@ namespace Assignment1
                 int Uhour, Smin, Fsec;
                 string meridian, final;
 
+
+                // Reading the time from string by dividing into Hours, minutes, seconds and meridian
                 string temp = s.Substring(0, 2);
                 hour = Int32.Parse(temp);
               
@@ -102,7 +106,11 @@ namespace Assignment1
                 sec = Int32.Parse(temp2);
                 
                 meridian = s.Substring(8, 2);
-                
+
+                /*
+                    * Condition to calculate total time (Earth time).
+                    * Adds 3600 if time entered is in PM (12hrs * 3600sec)
+                */
                 if(meridian == "AM")
                 {
                     total = ((hour * 3600) + (min * 60) + (sec));
@@ -114,12 +122,14 @@ namespace Assignment1
                     
                 }
 
+                //Divide the Earth time to get "USF" time
                 Uhour = total / 2700;
                 Smin = (total % 2700)/45;
                 Fsec = (total % 2700) % 45;
 
                 final = "";
 
+                // Ternary condition to print 0 before the single digits. Joining hour, min and sec in a single string.
                 final = (Uhour < 10) ? (final+ "0"+ Uhour + ":") : (final + Uhour + ":");
                 final = (Smin < 10) ? (final + "0" + Smin + ":") : (final + Smin + ":");
                 final = (Fsec < 10) ? (final + "0" + Fsec) : (final + Fsec);
@@ -133,7 +143,6 @@ namespace Assignment1
             }
             return null;
         }
-
 
         public static void UsfNumbers(int n3, int k)
         {
@@ -153,6 +162,8 @@ namespace Assignment1
                         count = 1;
                     }
                     count = count + 1;
+
+                    /* Check if the number is divisible by 3, 5 or 7, or two numbers or all of them */
                     if (i % 3 == 0 && i % 5 == 0 && i % 7 == 0)
                     {
                         Console.Write(" USF");
@@ -196,7 +207,10 @@ namespace Assignment1
         }
 
 
-
+        /* This function will determine the pair of distinct indices (i,j) from a given
+         * list of unique words such that the concatenation of two words
+         * i.e. words[i]+words[j] is a palindrome. 
+        */
         public static void PalindromePairs(string[] words)
         {
             try
@@ -207,18 +221,24 @@ namespace Assignment1
                 int i, j;
                 List<string> pairsList = new List<string>();
 
+                /* Every word in the list will be compared with every other word in the list */
                 for (i = 0; i < words.Length; i++)
                 {
                     first = words[i];
                     for (j = 0; j <words.Length; j++)
                     {
                         second = words[j];
+
+                        /* If the words are distinct(not the same index in array) and
+                           when combined is a palindrome - add it to the final result list */
                         if (i != j && Program.isPalindrome(first, second))
                         {
                             pairsList.Add('[' + i.ToString() + ',' + j.ToString() + ']');
                         }
                     }
                 }
+
+                // converting list to array and the joining every element in the array with ',' for display.
                 string resultfinal = '[' + string.Join(",", pairsList.ToArray()) + ']'; 
                 Console.WriteLine(resultfinal);
             }
@@ -229,14 +249,22 @@ namespace Assignment1
             }
         }
 
+        /* This function will check if the given two strings when combined are palindrome or not */
         public static bool isPalindrome(string s1, string s2)
         {
+            // Merge two string inputs into one
             string combinedString = s1 + s2;
 
+            // Convert string to character array. 'abc' will become ['a','b','c']
             char[] ch = combinedString.ToCharArray();
+
+            // Reverse the character array. ['a', 'b', 'c'] will become ['c', 'a', 'b']
             Array.Reverse(ch);
+
+            // Creating new string variable from the reversed character array. ['c', 'a', 'b'] will become 'cab'
             string reverse = new String(ch);
 
+            // Check if input and reversed string are same. If same, then its a palindrom.
             bool result = combinedString.Equals(reverse);
             return result;
         }
